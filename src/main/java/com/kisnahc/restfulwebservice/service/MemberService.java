@@ -3,6 +3,7 @@ package com.kisnahc.restfulwebservice.service;
 import com.kisnahc.restfulwebservice.domain.Member;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
 public class MemberService {
 
     private static List<Member> members = new ArrayList<>();
-
+    private static long sequence = 0L;
 
     public List<Member> findAll() {
         return members;
@@ -18,6 +19,8 @@ public class MemberService {
 
     public Long save(Member member) {
         if (member.getId() == null) {
+            member.setId(++sequence);
+            member.setCreatedAt(LocalDateTime.now());
             members.add(member);
         }
         return member.getId();

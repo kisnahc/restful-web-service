@@ -2,10 +2,12 @@ package com.kisnahc.restfulwebservice.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class Member {
 
@@ -13,5 +15,5 @@ public class Member {
 
     private String username;
 
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 }
