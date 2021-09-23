@@ -60,8 +60,15 @@ public class MemberController {
                 .buildAndExpand(saveMemberId)
                 .toUri();
 
-       return ResponseEntity.created(location).build();
-
+        return ResponseEntity.created(location).build();
     }
 
+    @DeleteMapping("/members/{id}")
+    public void deleteMember(@PathVariable Long id) {
+        Member member = memberService.deleteById(id);
+
+        if (member == null) {
+            throw new MemberNotFoundException("회원을 찾을 수 없습니다. " + "ID = " + id);
+        }
+    }
 }
