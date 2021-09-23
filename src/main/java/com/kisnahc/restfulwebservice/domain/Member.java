@@ -16,4 +16,8 @@ public class Member {
     private String username;
 
     private LocalDateTime createdAt;
+
+    public void updateUsername(String username) {
+        this.username = username;
+    }
 }

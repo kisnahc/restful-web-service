@@ -43,4 +43,9 @@ public class MemberService {
         }
         return null;
     }
+
+    public void update(Long id, String username) {
+        Member member = findById(id);
+        member.updateUsername(username);
+    }
 }

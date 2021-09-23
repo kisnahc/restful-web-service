@@ -71,4 +71,16 @@ public class MemberController {
             throw new MemberNotFoundException("회원을 찾을 수 없습니다. " + "ID = " + id);
         }
     }
+
+    @PostMapping("/members/{id}")
+    public ResponseEntity<Member> updateMember(@PathVariable Long id, @RequestBody Member member) {
+        Member findMember = memberService.findById(id);
+
+        if (findMember == null) {
+            throw new MemberNotFoundException("회원을 찾을 수 없습니다. " + "ID = " + id);
+        }
+
+        memberService.update(findMember.getId(), member.getUsername());
+        return ResponseEntity.ok().build();
+    }
 }
