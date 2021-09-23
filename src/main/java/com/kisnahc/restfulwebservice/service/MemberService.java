@@ -36,14 +36,11 @@ public class MemberService {
     }
 
     public Member deleteById(Long id) {
-        for (Member member : members) {
-            if (member.getId().equals(id)) {
-                members.remove(member);
-                return member;
-            }
+        Member member = findById(id);
+        if (member.getId().equals(id)) {
+            members.remove(member);
+            return member;
         }
         return null;
     }
-
-
 }
