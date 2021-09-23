@@ -2,6 +2,7 @@ package com.kisnahc.restfulwebservice.controller;
 
 import com.kisnahc.restfulwebservice.domain.Member;
 import com.kisnahc.restfulwebservice.dto.MemberDto;
+import com.kisnahc.restfulwebservice.exception.MemberNotFoundException;
 import com.kisnahc.restfulwebservice.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,7 +42,12 @@ public class MemberController {
 
     @GetMapping("/members/{id}")
     public Member findMember(@PathVariable Long id) {
-        return memberService.findById(id);
+        Member member = memberService.findById(id);
+
+        if (member == null) {
+            throw new MemberNotFoundException("회원을 찾을 수 없습니다. " + "ID = " + id);
+        }
+        return member;
     }
 
     @PostMapping("/members")
