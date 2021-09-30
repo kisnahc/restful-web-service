@@ -5,6 +5,7 @@ import com.kisnahc.restfulwebservice.domain.Member;
 import com.kisnahc.restfulwebservice.dto.MemberDto;
 import com.kisnahc.restfulwebservice.exception.MemberNotFoundException;
 import com.kisnahc.restfulwebservice.service.MemberService;
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Api(tags = {"Member API"})
 @RestController
 @RequiredArgsConstructor
 public class MemberController {

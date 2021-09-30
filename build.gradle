@@ -23,6 +23,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation' //유효성 검증.
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas' // HATEOAS 추가.
+	implementation 'io.springfox:springfox-boot-starter:3.0.0' // SWAGGER 추가.
 
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
