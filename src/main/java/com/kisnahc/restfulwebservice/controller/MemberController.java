@@ -7,8 +7,8 @@ import com.kisnahc.restfulwebservice.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -16,6 +16,9 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequiredArgsConstructor
@@ -43,13 +46,17 @@ public class MemberController {
     }
 
     @GetMapping("/members/{id}")
-    public Member findMember(@PathVariable Long id) {
+    public EntityModel<Member> findMember(@PathVariable Long id) {
         Member member = memberService.findById(id);
 
         if (member == null) {
             throw new MemberNotFoundException("회원을 찾을 수 없습니다. " + "ID = " + id);
         }
-        return member;
+
+        return EntityModel.of(memberService.findById(id),
+                linkTo(methodOn(this.getClass()).findMember(member.getId())).withSelfRel(),
+                linkTo(methodOn(this.getClass()).memberList()).withRel("memberList"));
+
     }
 
     @PostMapping("/members")
