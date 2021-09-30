@@ -1,5 +1,6 @@
 package com.kisnahc.restfulwebservice.controller;
 
+import com.kisnahc.restfulwebservice.EntityToModelConverter;
 import com.kisnahc.restfulwebservice.domain.Member;
 import com.kisnahc.restfulwebservice.dto.MemberDto;
 import com.kisnahc.restfulwebservice.exception.MemberNotFoundException;
@@ -17,14 +18,12 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-
 @RestController
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
+    private final EntityToModelConverter entityToModelConverter;
 
     @Data
     @AllArgsConstructor
@@ -53,9 +52,7 @@ public class MemberController {
             throw new MemberNotFoundException("회원을 찾을 수 없습니다. " + "ID = " + id);
         }
 
-        return EntityModel.of(memberService.findById(id),
-                linkTo(methodOn(this.getClass()).findMember(member.getId())).withSelfRel(),
-                linkTo(methodOn(this.getClass()).memberList()).withRel("memberList"));
+        return entityToModelConverter.toModel(member);
 
     }
 
