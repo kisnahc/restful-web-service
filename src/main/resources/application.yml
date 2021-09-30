@@ -1,3 +1,21 @@
 spring:
   messages:
     basename: messages
+
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format: true
+
+  datasource:
+    url:  jdbc:h2:tcp://localhost/~/restful-test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+logging:
+  level:
+    org.hibernate.SQL: debug
