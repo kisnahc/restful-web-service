@@ -31,6 +31,15 @@ public class Member extends BaseTimeEntity{
     @OneToMany(mappedBy = "member")
     private List<Post> postList = new ArrayList<>();
 
+    //== 연관관계 편의 메서드 ==//
+    public void addPost(Post post) {
+        this.postList.add(post);
+        //무한루프 검증 로직.
+        if (post.getMember() != this) {
+            post.setMember(this);
+        }
+    }
+
     public void updateUsername(String username) {
         this.username = username;
     }

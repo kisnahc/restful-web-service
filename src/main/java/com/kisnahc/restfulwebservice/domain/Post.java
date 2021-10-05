@@ -25,7 +25,19 @@ public class Post extends BaseTimeEntity {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     private Member member;
 
 
+    //== 연관관계 편의 메서드 ==//
+    public void setMember(Member member) {
+        this.member = member;
+
+        //무한루프 검증 로직.
+        if (!member.getPostList().contains(this)) {
+            member.getPostList().add(this);
+        }
+    }
 }
+
+
