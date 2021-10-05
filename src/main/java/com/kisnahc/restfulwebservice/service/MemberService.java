@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.ValidationException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Transactional(readOnly = true)
@@ -25,7 +24,6 @@ public class MemberService {
     @Transactional
     public Long save(Member member) {
         validateDuplicateMember(member); //중복 검증 메서드.
-        member.setCreatedAt(LocalDateTime.now());
         memberRepository.save(member);
         return member.getId();
     }

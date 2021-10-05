@@ -2,24 +2,23 @@ package com.kisnahc.restfulwebservice.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.time.LocalDateTime;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Member {
+public class Member extends BaseTimeEntity{
 
     @Id
     @GeneratedValue
+    @Column(name = "member_id")
     private Long id;
 
     @ApiModelProperty(notes = "이름을 입력해 주세요.")
@@ -27,7 +26,10 @@ public class Member {
     @Column(unique = true)
     private String username;
 
-    private LocalDateTime createdAt;
+    private String age;
+
+    @OneToMany(mappedBy = "member")
+    private List<Post> postList = new ArrayList<>();
 
     public void updateUsername(String username) {
         this.username = username;
